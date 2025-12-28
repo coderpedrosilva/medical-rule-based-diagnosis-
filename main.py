@@ -1,10 +1,23 @@
 from src.preprocess import load_data
 from src.majority import MajorityClassifier
+from src.oner import OneR
 
+# carregar dados
 X_train, X_test, y_train, y_test = load_data()
 
-model = MajorityClassifier()
-model.fit(y_train)
-predictions = model.predict(X_test)
+print("Sistema de Diagnóstico por Regras iniciado")
 
-print("Majority prediction:", predictions[:10])
+# Majority
+majority = MajorityClassifier()
+majority.fit(y_train)
+majority_preds = majority.predict(X_test)
+
+print("Majority prediction:", majority_preds[:10])
+
+# OneR
+oner = OneR()
+oner.fit(X_train, y_train)
+oner_preds = oner.predict(X_test)
+
+print("OneR using:", oner.best_feature)
+print("OneR predictions:", oner_preds.head(10).values)
