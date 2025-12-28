@@ -29,3 +29,9 @@ prism.fit(X_train, y_train)
 prism_preds = prism.predict(X_test)
 
 print("PRISM predictions:", prism_preds[:10])
+
+from src.evaluate import evaluate_model
+
+evaluate_model("Majority", y_test, majority_preds)
+evaluate_model("OneR", y_test, oner_preds)
+evaluate_model("PRISM", y_test, prism_preds)
