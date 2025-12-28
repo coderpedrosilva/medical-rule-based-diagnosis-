@@ -1,7 +1,10 @@
 from src.preprocess import load_data
+from src.majority import MajorityClassifier
 
 X_train, X_test, y_train, y_test = load_data()
 
-print("Sistema de Diagnóstico por Regras iniciado")
-print("Amostras de treino:", len(X_train))
-print("Amostras de teste:", len(X_test))
+model = MajorityClassifier()
+model.fit(y_train)
+predictions = model.predict(X_test)
+
+print("Majority prediction:", predictions[:10])
