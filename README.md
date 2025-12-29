@@ -55,7 +55,7 @@ Mostra como uma única variável pode ser altamente informativa.
 Algoritmo de indução de múltiplas regras combinadas.
 
 Ele constrói regras do tipo:
-SE Glucose > 150 E BMI > 30 E Age > 50 → diabetes = 1
+> SE Glucose > 150 E BMI > 30 E Age > 50 → diabetes = 1
 
 Isso cria um sistema especialista real, totalmente explicável, auditável e humano-legível.
 
