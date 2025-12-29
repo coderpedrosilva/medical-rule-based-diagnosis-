@@ -13,7 +13,7 @@ class OneR:
             df["bin"] = pd.qcut(df[col], q=3, duplicates="drop")
 
             # cria regra: para cada bin, a classe mais comum
-            rules = df.groupby("bin")["y"].agg(lambda x: x.value_counts().idxmax())
+            rules = df.groupby("bin", observed=False)["y"].agg(lambda x: x.value_counts().idxmax())
 
             # calcula erro
             preds = df["bin"].map(rules)

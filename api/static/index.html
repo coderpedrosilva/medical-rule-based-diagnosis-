@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Medical Rule-Based Diagnosis</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <h2>Diagnóstico Médico Simulado</h2>
+  <p>Sistema de decisão baseado em regras (Majority, OneR, PRISM)</p>
+
+  <form id="form">
+    <div class="row">
+      <input placeholder="Glucose (ex: 145)" id="Glucose" required>
+      <input placeholder="BMI (ex: 32)" id="BMI" required>
+      <input placeholder="Age (ex: 52)" id="Age" required>
+    </div>
+
+    <select id="model">
+      <option value="majority">Majority (baseline)</option>
+      <option value="oner">OneR (regra única)</option>
+      <option value="prism">PRISM (regras combinadas)</option>
+    </select>
+
+    <button>Executar diagnóstico</button>
+  </form>
+
+  <div class="alert" id="result" style="display:none;"></div>
+</div>
+
+<script>
+document.getElementById("form").onsubmit = async (e) => {
+  e.preventDefault();
+  const model = document.getElementById("model").value;
+
+  const payload = {
+    Pregnancies: 0,
+    Glucose: Number(document.getElementById("Glucose").value),
+    BloodPressure: 70,
+    SkinThickness: 20,
+    Insulin: 80,
+    BMI: Number(document.getElementById("BMI").value),
+    DiabetesPedigreeFunction: 0.5,
+    Age: Number(document.getElementById("Age").value)
+  };
+
+  const res = await fetch(`/predict/${model}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  });
+
+  const data = await res.json();
+
+  document.getElementById("result").style.display = "block";
+  document.getElementById("result").innerHTML =
+    `<strong>Resultado:</strong> ${data.prediction == 1 ? "DIABETES (simulado)" : "Sem diabetes (simulado)"}<br>
+     <strong>Regra aplicada:</strong> ${data.rule}`;
+};
+</script>
+
+</body>
+</html>
