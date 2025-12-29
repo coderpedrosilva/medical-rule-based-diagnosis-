@@ -1,1 +1,10 @@
-__pycache__
+# Python
+__pycache__/
+*.pyc
+
+# Ambiente
+.venv/
+env/
+
+# Artefatos gerados
+reports/

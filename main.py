@@ -35,3 +35,7 @@ from src.evaluate import evaluate_model
 evaluate_model("Majority", y_test, majority_preds)
 evaluate_model("OneR", y_test, oner_preds)
 evaluate_model("PRISM", y_test, prism_preds)
+
+from src.rule_engine import export_prism_rules
+export_prism_rules(prism)
+print("Regras PRISM exportadas para reports/rules.txt")
