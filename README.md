@@ -61,6 +61,48 @@ Isso cria um sistema especialista real, totalmente explicável, auditável e hum
 
 ---
 
+## 🧪 Como acontece o treinamento de Machine Learning
+
+O treinamento do sistema ocorre automaticamente no momento em que a API é iniciada.
+
+Ao executar o servidor, o sistema carrega o arquivo `diabetes.csv` contendo dados reais de pacientes e inicia o processo de aprendizado das regras.
+
+Cada modelo passa por um processo diferente de aprendizado:
+
+### Majority Classifier
+
+O sistema analisa toda a base e identifica qual classe (com ou sem diabetes) aparece com maior frequência.
+
+Essa classe é armazenada como a resposta padrão do modelo, funcionando como baseline estatístico.
+
+### OneR
+
+O algoritmo OneR avalia cada atributo individualmente (como glicose, IMC, idade, etc.) e cria faixas (intervalos) para cada um.
+
+Em seguida, ele calcula, para cada faixa, qual classe ocorre com maior frequência.
+
+O atributo que gera o menor erro global é selecionado como regra principal do sistema.
+
+O resultado é uma única regra estatística aprendida automaticamente a partir dos dados.
+
+### PRISM
+
+O PRISM executa um processo iterativo de indução de regras combinadas.
+
+Ele busca combinações de condições que maximizam a probabilidade de uma determinada classe.
+
+A cada iteração, uma nova regra do tipo:
+> SE condição1 E condição2 E condição3 → classe
+é criada e armazenada.
+
+Esse processo se repete até que o sistema construa um conjunto completo de regras especialistas.
+
+Todas as regras aprendidas permanecem carregadas em memória e passam a compor o motor de inferência da aplicação.
+
+A partir desse ponto, o sistema não realiza mais aprendizado, apenas executa inferência por regras em tempo real.
+
+---
+
 ## ⚙️ Engenharia do Sistema
 
 1. A API carrega o CSV e treina os modelos apenas uma vez no startup.
